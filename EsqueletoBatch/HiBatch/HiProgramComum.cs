@@ -11,7 +11,7 @@ public class HiProgramComum
 {
     public static bool EstaDebugando;
 
-    public static async Task MainAsync(string[] args, IHiConfiguradorServicos configuradorServicos)
+    public static async Task MainAsync(string[] args, IHiConfiguradorLogger hiConfiguradorLogger, IHiConfiguradorServicos configuradorServicos)
     {
         EstaDebugando = (Debugger.IsAttached || args.Contains("--console"));
         var environment = "";
@@ -26,7 +26,7 @@ public class HiProgramComum
             var hostBuilderDebg = new HostBuilder()
                 .ConfigureServices((context, services) => {
                     EstaDebugando = true;
-                    ConfigurarServicos(services, environment, configuradorServicos);
+                    ConfigurarServicos(services, environment, hiConfiguradorLogger, configuradorServicos);
                 });
             var caminhoProjeto = Directory.GetCurrentDirectory();
             await hostBuilderDebg.ConfigureAppConfiguration((hostContext, config) => 
@@ -41,7 +41,7 @@ public class HiProgramComum
             var hostBuilder = new HostBuilder()
                 .ConfigureServices((context, services) => {
                     EstaDebugando = false;
-                    ConfigurarServicos(services, environment, configuradorServicos);
+                    ConfigurarServicos(services, environment, hiConfiguradorLogger, configuradorServicos);
                 });
 
             await RunServiceAsync(
@@ -86,7 +86,7 @@ public class HiProgramComum
             .RunAsync(cancellationToken);
     }
 
-    public static void ConfigurarServicos(IServiceCollection services, string environment, IHiConfiguradorServicos hiConfiguradorServicos)
+    public static void ConfigurarServicos(IServiceCollection services, string environment, IHiConfiguradorLogger hiConfiguradorLogger, IHiConfiguradorServicos hiConfiguradorServicos)
     {
         var config = new ConfigurationBuilder()
             .AddJsonFile(ObterCaminhoAppSettings(), optional: false, reloadOnChange: true)
@@ -95,7 +95,7 @@ public class HiProgramComum
 
         services.AddScoped<IConfigurationRoot>(c => config);
 
-        services.AddSingleton<IHiLogger, HiConsoleLogger>();
+        hiConfiguradorLogger.ConfigurarLogger(services);
 
         services.AddOptions();
 
@@ -106,4 +106,5 @@ public class HiProgramComum
 
         hiConfiguradorServicos.ConfigurarServicos(services, environment, config);
     }
+
 }
