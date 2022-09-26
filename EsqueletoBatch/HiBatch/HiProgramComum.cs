@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using EsqueletoBatch.HiDiretorerProjeto;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -55,19 +56,11 @@ public class HiProgramComum
         }
     }
 
-    public static string GetCurrentDirectorySemBinDebug()
-    {
-        var currentDirectory = Directory.GetCurrentDirectory();
-        var indexOfpastaBinDebug = currentDirectory.IndexOf("\\bin\\Debug");
-        var currentDirectorySemBinDebug = indexOfpastaBinDebug != -1 ? currentDirectory.Substring(0, indexOfpastaBinDebug) : currentDirectory;
-        return currentDirectorySemBinDebug;
-    }
-
     public static string ObterCaminhoAppSettings()
     {
         if (EstaDebugando)
         {
-            return GetCurrentDirectorySemBinDebug() + "\\appsettings.json";
+            return HiDiretorer.GetCurrentDirectorySemBinDebug() + "\\appsettings.json";
         }
         else
         {
@@ -79,7 +72,7 @@ public class HiProgramComum
     {
         if (EstaDebugando)
         {
-            return GetCurrentDirectorySemBinDebug() + "\\appsettings." + environment + ".json";
+            return HiDiretorer.GetCurrentDirectorySemBinDebug() + "\\appsettings." + environment + ".json";
         }
         else
         {
