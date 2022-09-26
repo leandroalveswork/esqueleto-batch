@@ -1,0 +1,33 @@
+### Batch
+
+EsqueletoBatch/[Dd]ebug/
+EsqueletoBatch/[Dd]ebugPublic/
+EsqueletoBatch/[Rr]elease/
+EsqueletoBatch/[Rr]eleases/
+EsqueletoBatch/x64/
+EsqueletoBatch/x86/
+EsqueletoBatch/bld/
+EsqueletoBatch/[Bb]in/
+EsqueletoBatch/[Oo]bj/
+EsqueletoBatch/[Ll]og/
+EsqueletoBatch/*/[Dd]ebug/
+EsqueletoBatch/*/[Dd]ebugPublic/
+EsqueletoBatch/*/[Rr]elease/
+EsqueletoBatch/*/[Rr]eleases/
+EsqueletoBatch/*/x64/
+EsqueletoBatch/*/x86/
+EsqueletoBatch/*/bld/
+EsqueletoBatch/*/[Bb]in/
+EsqueletoBatch/*/[Oo]bj/
+EsqueletoBatch/*/[Ll]og/
+
+### saída
+
+Saida
+
+### IDE
+
+.vscode
+/*/.vscode
+.vs
+/*/.vs
